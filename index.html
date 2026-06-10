@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Management Accounting — Formula Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+/* ── Palette ── */
+:root{
+  --bg:#FEF9F2;
+  --card:#FFFFFF;
+  --text:#2C1A0E;
+  --muted:#7A5C48;
+  --border:#EDE3D8;
+  --sh:0 2px 16px rgba(44,26,14,.07);
+  --r:14px; --rs:9px;
+
+  /* M01 Coral Rose */
+  --m1b:#FFF0EC; --m1a:#C94A2C; --m1p:#FFCFC2; --m1t:#A03020;
+  /* M02 Lavender */
+  --m2b:#F2ECFF; --m2a:#6B4DB5; --m2p:#DCCEFF; --m2t:#4E2FA0;
+  /* M03 Sage */
+  --m3b:#EBF8F0; --m3a:#2E7D52; --m3p:#BEECD0; --m3t:#1A5E3A;
+  /* M04 Sky */
+  --m4b:#E8F2FF; --m4a:#2D5EBF; --m4p:#BFCFEF; --m4t:#1A3E8A;
+}
+
+/* ── Base ── */
+body{background:var(--bg);font-family:'Nunito',sans-serif;color:var(--text);line-height:1.65;font-size:15px}
+h1,h2,h3{font-family:'Lora',serif}
+
+/* ── Hero ── */
+.hero{
+  background:linear-gradient(140deg,#FFF0EC 0%,#F4EEFF 45%,#E8F8F0 100%);
+  text-align:center;padding:56px 20px 38px;border-bottom:1px solid var(--border);
+}
+.hero-eyebrow{font-size:.74rem;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--m1a);margin-bottom:12px}
+.hero h1{font-size:clamp(1.8rem,4.5vw,2.9rem);letter-spacing:-.4px;color:var(--text);margin-bottom:10px;line-height:1.2}
+.hero h1 span{color:var(--m1a);font-style:italic}
+.hero-sub{font-size:.95rem;color:var(--muted);max-width:520px;margin:0 auto 22px;line-height:1.6}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chip{padding:5px 14px;border-radius:20px;font-size:.76rem;font-weight:800;letter-spacing:.3px}
+.c1{background:var(--m1p);color:var(--m1t)}
+.c2{background:var(--m2p);color:var(--m2t)}
+.c3{background:var(--m3p);color:var(--m3t)}
+.c4{background:var(--m4p);color:var(--m4t)}
+
+/* ── Sticky Nav ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(254,249,242,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  display:flex;flex-wrap:wrap;gap:6px;
+  padding:8px 20px;justify-content:center;
+}
+.nb{
+  padding:6px 18px;border-radius:20px;border:1.5px solid transparent;
+  font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:800;
+  cursor:pointer;text-decoration:none;transition:all .18s;letter-spacing:.2px;
+}
+.nb:hover,.nb.active{background:var(--card);border-color:currentColor}
+.nb1{color:var(--m1a)} .nb2{color:var(--m2a)} .nb3{color:var(--m3a)} .nb4{color:var(--m4a)}
+
+/* ── Module Wrapper ── */
+.mod{padding:42px 22px 56px;max-width:1080px;margin:0 auto}
+
+/* ── Module Header ── */
+.mhd{border-radius:var(--r);padding:24px 28px;margin-bottom:32px}
+.mhd h2{font-size:1.4rem;margin-bottom:6px;line-height:1.25}
+.mhd p{font-size:.87rem;opacity:.78;line-height:1.4}
+.mh1{background:var(--m1b);color:var(--m1t)}
+.mh2{background:var(--m2b);color:var(--m2t)}
+.mh3{background:var(--m3b);color:var(--m3t)}
+.mh4{background:var(--m4b);color:var(--m4t)}
+
+/* ── Group Label ── */
+.gl{font-size:.73rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--muted);margin:30px 0 14px;padding-left:2px;
+  display:flex;align-items:center;gap:8px}
+.gl::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── Grid ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:16px}
+.grid.w{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+
+/* ── Card ── */
+.card{
+  background:var(--card);border-radius:var(--r);
+  box-shadow:var(--sh);border:1px solid var(--border);
+  overflow:hidden;transition:transform .2s,box-shadow .2s;
+  display:flex;flex-direction:column;
+}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 26px rgba(44,26,14,.12)}
+
+/* ── Card Top ── */
+.ct{padding:14px 16px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.cn{font-family:'Lora',serif;font-size:.96rem;font-weight:600;color:var(--text);line-height:1.3;flex:1}
+.tag{font-size:.67rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;
+  padding:3px 9px;border-radius:10px;white-space:nowrap;flex-shrink:0}
+.t1{background:var(--m1p);color:var(--m1t)}
+.t2{background:var(--m2p);color:var(--m2t)}
+.t3{background:var(--m3p);color:var(--m3t)}
+.t4{background:var(--m4p);color:var(--m4t)}
+
+/* ── Formula Box ── */
+.fb{
+  margin:12px 16px 14px;padding:12px 14px;border-radius:var(--rs);
+  font-family:'Nunito',sans-serif;font-size:.89rem;font-weight:700;
+  line-height:1.9;word-break:break-word;flex:1;
+}
+.f1{background:#FFF7F5;border:1.5px solid #FFDDD5;color:#9A2010}
+.f2{background:#F8F4FF;border:1.5px solid #E0CCFF;color:#502898}
+.f3{background:#F2FBF5;border:1.5px solid #B6EAC8;color:#185A38}
+.f4{background:#F2F6FF;border:1.5px solid #B8CAEE;color:#183878}
+
+/* ── Fraction ── */
+.fr{display:inline-flex;flex-direction:column;align-items:center;
+  vertical-align:middle;margin:0 3px;line-height:1.1}
+.fr .n{border-bottom:1.5px solid currentColor;padding:0 5px 2px;font-size:.85em;text-align:center}
+.fr .d{padding:2px 5px 0;font-size:.85em;text-align:center}
+
+/* ── Card Note ── */
+.note{padding:0 16px 14px;font-size:.79rem;color:var(--muted);line-height:1.45}
+
+/* ── Divider between sections ── */
+.section-gap{border:none;height:1px;background:var(--border);margin:0}
+
+/* ── Footer ── */
+footer{
+  text-align:center;padding:32px 20px 40px;
+  border-top:1px solid var(--border);color:var(--muted);font-size:.83rem;
+  background:linear-gradient(180deg,var(--bg),#FDF3E8);
+}
+footer strong{color:var(--text)}
+
+/* ── Responsive ── */
+@media(max-width:580px){
+  .grid,.grid.w{grid-template-columns:1fr}
+  .hero{padding:34px 14px 26px}
+  .mod{padding:28px 14px 40px}
+  .mhd{padding:18px 18px}
+  nav{padding:6px 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<header class="hero">
+  <div class="hero-eyebrow">IIM Bangalore · BBA DBE Programme</div>
+  <h1>Management Accounting<br><span>Formula Reference</span></h1>
+  <p class="hero-sub">Every formula from all four modules — organized, color-coded, and exam-ready.</p>
+  <div class="chips">
+    <span class="chip c1">Module 01 · Intro &amp; Cost Terms</span>
+    <span class="chip c2">Module 02 · Product Costing &amp; ABC</span>
+    <span class="chip c3">Module 03 · Decision-Making</span>
+    <span class="chip c4">Module 04 · Budgeting &amp; Variance</span>
+  </div>
+</header>
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav id="topnav">
+  <a href="#m1" class="nb nb1">Module 01</a>
+  <a href="#m2" class="nb nb2">Module 02</a>
+  <a href="#m3" class="nb nb3">Module 03</a>
+  <a href="#m4" class="nb nb4">Module 04</a>
+</nav>
+
+<!-- ═══════════════════ MODULE 01 ═══════════════════ -->
+<section id="m1">
+<div class="mod">
+  <div class="mhd mh1">
+    <h2>Module 01 — Introduction to Management Accounting</h2>
+    <p>Core cost definitions, cost flow through the income statement, and profitability ratios</p>
+  </div>
+
+  <p class="gl">Core Cost Formulas</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Prime Cost</span><span class="tag t1">Core</span></div>
+      <div class="fb f1">Prime Cost = DM + DL</div>
+      <div class="note">Direct Material Cost + Direct Labour Cost — the two primary inputs before any overhead</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Conversion Cost</span><span class="tag t1">Core</span></div>
+      <div class="fb f1">Conversion Cost = DL + Mfg OH</div>
+      <div class="note">Direct Labour + Manufacturing Overhead — cost of converting raw material into finished goods</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Cost of Goods Manufactured</span><span class="tag t1">COGM</span></div>
+      <div class="fb f1">COGM = Prime Cost + Mfg Overhead</div>
+      <div class="note">Total factory cost; alternatively: DM + DL + Manufacturing Overhead</div>
+    </div>
+
+  </div>
+
+  <p class="gl">Income Statement Formulas</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Cost of Sales — Method 1</span><span class="tag t1">P&amp;L</span></div>
+      <div class="fb f1">CoS = COGM + Admin OH<br>+ Selling &amp; Distribution OH</div>
+      <div class="note">Full absorption cost of sales; all overhead categories added to factory cost</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Cost of Sales — Method 2</span><span class="tag t1">P&amp;L</span></div>
+      <div class="fb f1">CoS = Total Expenses − Closing Inventory</div>
+      <div class="note">Alternative approach — deduct unsold inventory from total period expenses</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Profit</span><span class="tag t1">P&amp;L</span></div>
+      <div class="fb f1">Profit = Sales − Cost of Sales</div>
+      <div class="note">Foundational P&amp;L formula; basis for all downstream profitability ratios</div>
+    </div>
+
+  </div>
+
+  <p class="gl">Margin Ratios</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Profit Margin</span><span class="tag t1">Ratio</span></div>
+      <div class="fb f1">Profit Margin = <span class="fr"><span class="n">Profit</span><span class="d">Sales</span></span></div>
+      <div class="note">Percentage of revenue that becomes profit; used for external benchmarking</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Conversion Margin</span><span class="tag t1">Ratio</span></div>
+      <div class="fb f1">Conversion Margin = <span class="fr"><span class="n">Profit</span><span class="d">Conversion Cost</span></span></div>
+      <div class="note">Isolates factory value-creation efficiency — especially useful when raw material costs fluctuate heavily</div>
+    </div>
+
+  </div>
+</div>
+</section>
+<hr class="section-gap">
+
+<!-- ═══════════════════ MODULE 02 ═══════════════════ -->
+<section id="m2">
+<div class="mod">
+  <div class="mhd mh2">
+    <h2>Module 02 — Product Costing &amp; Activity Based Costing</h2>
+    <p>Job costing, process costing equivalent units, loss treatment, and the ABC hierarchy</p>
+  </div>
+
+  <p class="gl">Job Costing</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Prime Cost (Job Costing)</span><span class="tag t2">Job</span></div>
+      <div class="fb f2">Prime Cost = Direct Material<br>+ Direct Expenses</div>
+      <div class="note">In job costing, specific direct expenses (e.g. specialist licensing, tooling) replace or supplement direct labour</div>
+    </div>
+
+  </div>
+
+  <p class="gl">Process Costing</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Equivalent Units</span><span class="tag t2">Process</span></div>
+      <div class="fb f2">EU = (Completed Units × 100%)<br>+ (WIP Units × % Completion)</div>
+      <div class="note">Converts partially complete Work-in-Progress into fully-completed unit equivalents for accurate costing</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Cost per Equivalent Unit</span><span class="tag t2">Process</span></div>
+      <div class="fb f2">Cost per EU = <span class="fr"><span class="n">Total Cost Incurred</span><span class="d">Total Equivalent Units</span></span></div>
+      <div class="note">Splits total period cost across completed units and closing WIP proportionally</div>
+    </div>
+
+  </div>
+</div>
+</section>
+<hr class="section-gap">
+
+<!-- ═══════════════════ MODULE 03 ═══════════════════ -->
+<section id="m3">
+<div class="mod">
+  <div class="mhd mh3">
+    <h2>Module 03 — Cost Analysis for Decision-Making</h2>
+    <p>Marginal costing, CVP &amp; break-even, relevant costing, limiting factors, and operating leverage</p>
+  </div>
+
+  <p class="gl">Marginal Costing Framework</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Contribution Margin</span><span class="tag t3">Marginal</span></div>
+      <div class="fb f3">Contribution = Sales − Variable Cost</div>
+      <div class="note">Amount left after covering all variable costs; used to recover fixed costs and generate profit</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Profit (Marginal Costing)</span><span class="tag t3">Marginal</span></div>
+      <div class="fb f3">Profit = Contribution − Fixed Cost</div>
+      <div class="note">Fixed costs are treated as a period cost and fully expensed in the period they are incurred</div>
+    </div>
+
+  </div>
+
+  <p class="gl">Mixed Cost Separation</p>
+  <div class="grid w">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Variable Cost per Unit (High-Low)</span><span class="tag t3">High-Low</span></div>
+      <div class="fb f3">VC/unit = <span class="fr"><span class="n">Cost at High Vol − Cost at Low Vol</span><span class="d">Highest Volume − Lowest Volume</span></span></div>
+      <div class="note">Uses the two extreme data points to estimate the variable cost rate; objective but ignores all other data points</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Fixed Cost Component</span><span class="tag t3">High-Low</span></div>
+      <div class="fb f3">Fixed Cost = Total Cost − (VC/unit × Volume)</div>
+      <div class="note">Computed at either the high or low volume point after deriving the variable rate</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Regression Equation</span><span class="tag t3">Regression</span></div>
+      <div class="fb f3">Y = a + bX</div>
+      <div class="note">a = Fixed Cost (Y-intercept); b = Variable Cost per unit (slope); most reliable — uses all historical data points</div>
+    </div>
+
+  </div>
+
+  <p class="gl">Cost-Volume-Profit (CVP) &amp; Break-Even Analysis</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Contribution Margin Ratio</span><span class="tag t3">CVP</span></div>
+      <div class="fb f3">CMR = <span class="fr"><span class="n">Contribution Margin</span><span class="d">Sales</span></span></div>
+      <div class="note">Percentage of each sales rupee that contributes to fixed costs and profit; constant per unit if price/VC are constant</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Break-Even Point — Units</span><span class="tag t3">BEP</span></div>
+      <div class="fb f3">BEP (Units) = <span class="fr"><span class="n">Fixed Cost</span><span class="d">CM per Unit</span></span></div>
+      <div class="note">Units that must be sold to exactly cover all fixed costs; profit = ₹0 at this point</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Break-Even Point — Sales Value</span><span class="tag t3">BEP</span></div>
+      <div class="fb f3">BEP (₹) = <span class="fr"><span class="n">Fixed Cost</span><span class="d">CMR</span></span></div>
+      <div class="note">Revenue needed to break even; useful when comparing across products with different prices</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Margin of Safety</span><span class="tag t3">MOS</span></div>
+      <div class="fb f3">MOS = Current Sales − BEP Sales</div>
+      <div class="note">How far sales can fall before hitting break-even; a measure of business cushion and risk</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Profit from MOS</span><span class="tag t3">MOS</span></div>
+      <div class="fb f3">Profit = MOS (units) × CM per Unit</div>
+      <div class="note">Quick profit computation using margin of safety units and per-unit contribution</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Multi-Product BEP (Bags)</span><span class="tag t3">Multi-Product</span></div>
+      <div class="fb f3">BEP Bags = <span class="fr"><span class="n">Fixed Cost</span><span class="d">Contribution per Bag</span></span></div>
+      <div class="note">A "bag" = one complete set in the sales mix (e.g. 3A + 2B = 1 bag); any change in mix shifts the BEP</div>
+    </div>
+
+  </div>
+
+  <p class="gl">Pricing Decisions</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Normal / Full-Cost Pricing</span><span class="tag t3">Pricing</span></div>
+      <div class="fb f3">Price = Cost + Desired Profit</div>
+      <div class="note">Long-run price must cover all fixed and variable costs and yield target margin</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Special Order / Export Price</span><span class="tag t3">Pricing</span></div>
+      <div class="fb f3">Min. Price = Variable Cost<br>+ Avoidable Fixed Costs</div>
+      <div class="note">Ignores already-absorbed fixed overheads; valid only when there is idle capacity available</div>
+    </div>
+
+  </div>
+
+  <p class="gl">Limiting Factor &amp; Optimal Product Mix</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Machine Hour Ranking</span><span class="tag t3">Constraint</span></div>
+      <div class="fb f3">Rank = <span class="fr"><span class="n">CM per Unit</span><span class="d">Machine Hours per Unit</span></span></div>
+      <div class="note">Rank products by CM per machine hour; produce highest-ranked product first until demand is met</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Labour Hour Ranking</span><span class="tag t3">Constraint</span></div>
+      <div class="fb f3">Rank = <span class="fr"><span class="n">CM per Unit</span><span class="d">Labour Hours per Unit</span></span></div>
+      <div class="note">Same ranking logic when labour hours are the binding constraint instead of machine hours</div>
+    </div>
+
+  </div>
+
+  <p class="gl">Operating &amp; Financial Leverage</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Degree of Operating Leverage</span><span class="tag t3">Leverage</span></div>
+      <div class="fb f3">DOL = <span class="fr"><span class="n">Contribution Margin</span><span class="d">PBIT</span></span></div>
+      <div class="note">Higher DOL = higher operating risk; a 10% rise in sales causes DOL × 10% rise in PBIT</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Degree of Financial Leverage</span><span class="tag t3">Leverage</span></div>
+      <div class="fb f3">DFL = <span class="fr"><span class="n">PBIT</span><span class="d">PBT</span></span></div>
+      <div class="note">Measures financial risk from debt obligations; also expressed as PBIT ÷ (PBIT − Interest)</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Total Combined Leverage</span><span class="tag t3">Leverage</span></div>
+      <div class="fb f3">Total = DOL × DFL = <span class="fr"><span class="n">CM</span><span class="d">PBT</span></span></div>
+      <div class="note">Combined sensitivity of profit to sales changes; incorporates both operating and financial risk</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">CVP Index</span><span class="tag t3">CVP</span></div>
+      <div class="fb f3">CVP Index = CMR × <span class="fr"><span class="n">BEP Sales</span><span class="d">Current Sales</span></span></div>
+      <div class="note">Evaluates the balance between profitability and risk; lower value = safer, more profitable position</div>
+    </div>
+
+  </div>
+</div>
+</section>
+<hr class="section-gap">
+
+<!-- ═══════════════════ MODULE 04 ═══════════════════ -->
+<section id="m4">
+<div class="mod">
+  <div class="mhd mh4">
+    <h2>Module 04 — Budgeting &amp; Variance Analysis</h2>
+    <p>Master budget, variance framework, material/labour/overhead variances, mix &amp; yield</p>
+  </div>
+
+  <p class="gl">Master Budget Formulas</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Production Quantity</span><span class="tag t4">Budget</span></div>
+      <div class="fb f4">Production = Target Sales<br>+ Desired Closing Stock<br>− Opening Stock</div>
+      <div class="note">Ensures enough units are produced to meet sales targets while maintaining desired inventory levels</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Purchase Quantity</span><span class="tag t4">Budget</span></div>
+      <div class="fb f4">Purchases = Material for Production<br>+ Desired Closing Material<br>− Opening Material</div>
+      <div class="note">Determines how much raw material to procure; follows the same logic as the production budget</div>
+    </div>
+
+  </div>
+
+  <p class="gl">General Variance Framework</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Actual Cost</span><span class="tag t4">Framework</span></div>
+      <div class="fb f4">Actual Cost = AP × AQ</div>
+      <div class="note">Actual Price × Actual Quantity — what the company actually spent</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Standard for Actual</span><span class="tag t4">Framework</span></div>
+      <div class="fb f4">Std for Actual = SP × AQ</div>
+      <div class="note">Standard Price × Actual Quantity — the bridge between actual and standard quantities</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Standard Cost</span><span class="tag t4">Framework</span></div>
+      <div class="fb f4">Standard Cost = SP × SQ</div>
+      <div class="note">Standard Price × Standard Quantity — the budgeted/expected cost for actual output</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Total Variance Decomposition</span><span class="tag t4">Framework</span></div>
+      <div class="fb f4">Total Variance = Price Variance<br>+ Usage/Efficiency Variance</div>
+      <div class="note">Every total cost variance splits into these two components; applies to material, labour, and overhead</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Price Variance (General)</span><span class="tag t4">Price</span></div>
+      <div class="fb f4">Price Variance = (AP − SP) × AQ</div>
+      <div class="note">Positive = Adverse (paid more than standard); Negative = Favourable; assumes standard usage</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Usage Variance (General)</span><span class="tag t4">Usage</span></div>
+      <div class="fb f4">Usage Variance = (AQ − SQ) × SP</div>
+      <div class="note">Positive = Adverse (used more than standard); Negative = Favourable; assumes standard price</div>
+    </div>
+
+  </div>
+
+  <p class="gl">Material Variances</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Total Material Variance</span><span class="tag t4">Material</span></div>
+      <div class="fb f4">Total MV = Actual Material Cost<br>− Standard Material Cost</div>
+      <div class="note">Overall material cost deviation; always equals MPV + MUV</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Material Price Variance</span><span class="tag t4">Material</span></div>
+      <div class="fb f4">MPV = Actual Cost<br>− Std Cost for Actual Qty</div>
+      <div class="note">(AP − SP) × AQ; isolates the purchasing department's price negotiation performance</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Material Usage Variance</span><span class="tag t4">Material</span></div>
+      <div class="fb f4">MUV = Std Cost for Actual Qty<br>− Standard Cost</div>
+      <div class="note">(AQ − SQ) × SP; isolates production's material consumption efficiency</div>
+    </div>
+
+  </div>
+
+  <p class="gl">Labour Variances</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Total Labour Variance</span><span class="tag t4">Labour</span></div>
+      <div class="fb f4">Total LV = Actual Labour Cost<br>− Budgeted Labour Cost</div>
+      <div class="note">Overall labour cost deviation; equals LRV + LEV</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Labour Rate Variance</span><span class="tag t4">Labour</span></div>
+      <div class="fb f4">LRV = (Actual Rate − Std Rate)<br>× Actual Hours</div>
+      <div class="note">Reflects whether workers were paid more or less per hour than the standard wage rate</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Labour Efficiency Variance</span><span class="tag t4">Labour</span></div>
+      <div class="fb f4">LEV = (Actual Hrs − Std Hrs)<br>× Standard Rate</div>
+      <div class="note">Reflects whether more or fewer hours were taken than the standard time allowed for actual output</div>
+    </div>
+
+  </div>
+
+  <p class="gl">Variable Overhead (VOH) Variances</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">VOH Spending Variance</span><span class="tag t4">VOH</span></div>
+      <div class="fb f4">VOH Spending = (Actual Rate − Std Rate)<br>× Actual Qty (Hours)</div>
+      <div class="note">Difference in the variable overhead rate actually incurred vs. the standard rate</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">VOH Efficiency Variance</span><span class="tag t4">VOH</span></div>
+      <div class="fb f4">VOH Efficiency = (AQ − SQ)<br>× Standard Rate</div>
+      <div class="note">Overhead impact of spending more or fewer hours than the standard — follows labour efficiency logic</div>
+    </div>
+
+  </div>
+
+  <p class="gl">Fixed Overhead (FOH) Variances</p>
+  <div class="grid">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Total FOH Variance</span><span class="tag t4">FOH</span></div>
+      <div class="fb f4">Total FOH = Actual FOH − Applied FOH</div>
+      <div class="note">Total over/under-absorption of fixed overheads; equals Spending + Volume variances</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">FOH Spending Variance</span><span class="tag t4">FOH</span></div>
+      <div class="fb f4">FOH Spending = Actual FOH<br>− Budgeted FOH</div>
+      <div class="note">Reflects whether actual fixed overhead spending exceeded or fell below budget</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">FOH Volume Variance</span><span class="tag t4">FOH</span></div>
+      <div class="fb f4">FOH Volume = Budgeted FOH<br>− Applied FOH</div>
+      <div class="note">Arises purely from producing a different volume than planned; unique to fixed overheads (VOH has no volume variance)</div>
+    </div>
+
+  </div>
+
+  <p class="gl">Material Mix &amp; Yield Variances</p>
+  <div class="grid w">
+
+    <div class="card">
+      <div class="ct"><span class="cn">Actual Cost</span><span class="tag t4">Mix</span></div>
+      <div class="fb f4">= AM × AQ × AP</div>
+      <div class="note">Actual Mix × Actual Quantity × Actual Price — starting baseline for mix/yield analysis</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Std Cost at Actual Mix</span><span class="tag t4">Mix</span></div>
+      <div class="fb f4">= AM × AQ × SP</div>
+      <div class="note">Actual Mix × Actual Quantity × Standard Price — removes price effect, isolates mix</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Std Cost at Standard Mix</span><span class="tag t4">Mix</span></div>
+      <div class="fb f4">= SM × AQ × SP</div>
+      <div class="note">Standard Mix × Actual Quantity × Standard Price — used to compute the Material Mix Variance</div>
+    </div>
+
+    <div class="card">
+      <div class="ct"><span class="cn">Target Standard Cost</span><span class="tag t4">Yield</span></div>
+      <div class="fb f4">= SM × SQ × SP</div>
+      <div class="note">Standard Mix × Standard Quantity × Standard Price — the ideal fully-standard cost baseline</div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <p><strong>Management Accounting · Formula Reference</strong></p>
+  <p style="margin-top:6px;font-size:.78rem">All four modules · IIM Bangalore BBA DBE Programme · For personal exam preparation use only</p>
+</footer>
+
+<!-- ═══════════════════ SCRIPT ═══════════════════ -->
+<script>
+// Highlight active nav pill on scroll
+(function(){
+  var ids = ['m1','m2','m3','m4'];
+  var btns = document.querySelectorAll('.nb');
+  var opts = {rootMargin:'-30% 0px -60% 0px', threshold:0};
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        btns.forEach(function(b){b.classList.remove('active')});
+        var btn = document.querySelector('.nb[href="#'+e.target.id+'"]');
+        if(btn) btn.classList.add('active');
+      }
+    });
+  }, opts);
+  ids.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
